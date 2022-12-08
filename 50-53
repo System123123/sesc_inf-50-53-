@@ -1,0 +1,537 @@
+def fifty_frac(x0, y0, xk, yk, win, n):
+    r0 = Rectangle(Point(x0, y0), Point(xk, yk))
+    r0.setFill("Black")
+    rk = Rectangle(Point(x0 + (xk-x0)/3, y0 + (yk-y0)/3), Point(x0 + (xk-x0)/3*2, y0 + (yk-y0)/3*2))
+    rk.setFill("White")
+    r0.draw(win)
+    rk.draw(win)
+    if n!= 0:
+        fifty_frac(x0, y0, x0 + (xk-x0)/3, y0 + (yk-y0)/3, win, n-1)
+        fifty_frac(x0 + (xk-x0)/3, y0, x0 + (xk-x0)/3*2, y0 + (yk-y0)/3, win,n-1)
+        fifty_frac(x0 + (xk-x0)/3*2, y0, xk, y0 + (yk-y0)/3, win, n-1)
+        fifty_frac(x0, y0 + (yk-y0)/3, x0 + (xk-x0)/3, y0+ (yk-y0)/3*2, win, n-1)
+        fifty_frac(x0, y0+(yk-y0)/3*2, x0 + (xk-x0)/3, yk, win, n-1)
+        fifty_frac(x0 + (xk - x0)/3, y0 + (yk-y0)/3*2, x0 + (xk-x0)/3*2, yk, win, n-1)
+        fifty_frac(x0 + (xk-x0)/3*2, y0 + (yk-y0)/3, xk, y0 + (yk-y0)/3*2, win, n-1)
+        fifty_frac(x0 + (xk-x0)/3*2, y0 + (yk-y0)/3*2, xk, yk, win, n-1)
+
+
+
+
+def fifty():
+    n = 5
+    win = GraphWin("This window", 1000, 1000, autoflush=False)
+    win.setBackground("White")
+    x0 = 0
+    y0 = 0
+    xk = 1000
+    yk = 1000
+    fifty_frac(x0, y0, xk, yk, win, n)
+    update(30)
+    time.sleep(10)
+
+def frac_fifty_one(x1, y1, x2, y2, x3, y3, win, n):
+    p1 = Polygon(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+    xk1 = x2 + (x1-x2)/2
+    xk2 = x1
+    xk3 = (x3-x1)/2 + x1
+    yk1 = y1 + (y2-y1)/2
+    yk2 = y2
+    yk3 = yk1
+    p2 = Polygon(Point(xk1, yk1), Point(xk2, yk2), Point(xk3, yk3))
+    p1.draw(win)
+    p2.draw(win)
+    if n!= 0:
+        frac_fifty_one(xk1, yk1, x2, y2, xk2, yk2, win, n-1)
+        frac_fifty_one(x1, y1, xk1, yk1, xk3, yk3, win, n-1)
+        frac_fifty_one(xk3, yk3, xk2, yk2, x3, y3, win, n-1)
+
+
+
+def fifty_one():
+    n = 5
+    win = GraphWin("This window", 2000, 2000, autoflush=False)
+    win.setBackground("White")
+    x1 = 1000
+    y1 = 300
+    y2 = 700
+    x2 = x1 - (y2-y1)*math.tan(math.pi/3)
+    x3 = x1 + (y2-y1) * math.tan(math.pi/3)
+    y3 = 700
+    frac_fifty_one(x1, y1, x2, y2, x3, y3, win, n-1)
+    update(30)
+    time.sleep(10)
+
+
+def fifty_two_frac_3(x0, y0, n, l, win, t):
+    if t == 0:
+        x1 = x0 + l
+        y1 = y0
+        x2 = x0
+        y2 = y0 + l
+        x3 = x0 - l
+        y3 = y0
+        x4 = x0
+        y4 = y0-l
+        l1 = Line(Point(x0, y0), Point(x1, y1))
+        l2 = Line(Point(x0, y0), Point(x2, y2))
+        l3 = Line(Point(x0, y0), Point(x3, y3))
+        l4 = Line(Point(x0, y0), Point(x4, y4))
+        l1.draw(win)
+        l2.draw(win)
+        l3.draw(win)
+        l4.draw(win)
+        fifty_two_frac_3(x1, y1, n-1, l/2, win, 1)
+        fifty_two_frac_3(x2, y2, n-1, l/2, win, 2)
+        fifty_two_frac_3(x3, y3, n-1, l/2, win, 3)
+        fifty_two_frac_3(x4, y4, n-1, l/2, win, 4)
+    else:
+        if t == 1:
+            x1 = x0 + l
+            y1 = y0
+            x2 = x0
+            y2 = y0 + l
+            x4 = x0
+            y4 = y0 - l
+            l1 = Line(Point(x0, y0), Point(x1, y1))
+            l2 = Line(Point(x0, y0), Point(x2, y2))
+            l3 = Line(Point(x0, y0), Point(x4, y4))
+            l1.draw(win)
+            l2.draw(win)
+            l3.draw(win)
+            if n != 0:
+                fifty_two_frac_3(x1, y1, n-1, l/2, win, 1)
+                fifty_two_frac_3(x2, y2, n-1, l/2, win, 2)
+                fifty_two_frac_3(x4, y4, n-1, l/2, win, 4)
+        elif t==2:
+            x1 = x0 + l
+            y1 = y0
+            x2 = x0
+            y2 = y0 + l
+            x3 = x0 - l
+            y3 = y0
+            l1 = Line(Point(x0, y0), Point(x1, y1))
+            l2 = Line(Point(x0, y0), Point(x2, y2))
+            l3 = Line(Point(x0, y0), Point(x3, y3))
+            l1.draw(win)
+            l2.draw(win)
+            l3.draw(win)
+            if n != 0:
+                fifty_two_frac_3(x1, y1, n - 1, l / 2, win, 1)
+                fifty_two_frac_3(x2, y2, n - 1, l / 2, win, 2)
+                fifty_two_frac_3(x3, y3, n - 1, l / 2, win, 3)
+        elif t== 3:
+            x4 = x0
+            y4 = y0 - l
+            x2 = x0
+            y2 = y0 + l
+            x3 = x0 - l
+            y3 = y0
+            l1 = Line(Point(x0, y0), Point(x4, y4))
+            l2 = Line(Point(x0, y0), Point(x2, y2))
+            l3 = Line(Point(x0, y0), Point(x3, y3))
+            l1.draw(win)
+            l2.draw(win)
+            l3.draw(win)
+            if n != 0:
+                fifty_two_frac_3(x4, y4, n - 1, l / 2, win, 4)
+                fifty_two_frac_3(x2, y2, n - 1, l / 2, win, 2)
+                fifty_two_frac_3(x3, y3, n - 1, l / 2, win, 3)
+
+        else:
+            x1 = x0 + l
+            y1 = y0
+            x4 = x0
+            y4 = y0 -l
+            x3 = x0 - l
+            y3 = y0
+            l1 = Line(Point(x0, y0), Point(x1, y1))
+            l2 = Line(Point(x0, y0), Point(x4, y4))
+            l3 = Line(Point(x0, y0), Point(x3, y3))
+            l1.draw(win)
+            l2.draw(win)
+            l3.draw(win)
+            if n != 0:
+                fifty_two_frac_3(x1, y1, n - 1, l / 2, win, 1)
+                fifty_two_frac_3(x4, y4, n - 1, l / 2, win, 4)
+                fifty_two_frac_3(x3, y3, n - 1, l / 2, win, 3)
+
+
+def fifty_two_frac_4(x0, y0, n, l, win, t):
+    a = np.linspace(np.pi/4, 9/4 * np.pi, 5)
+    pl = list()
+    for i in range(len(a)):
+        p = Point(x0 + l* math.sin(a[i]), y0 + l * math.cos(a[i]))
+        pl.append(p)
+    for i in range(0, t, 1):
+        lk = Line(Point(x0, y0), pl[i])
+        lk.draw(win)
+        if n != 0:
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n-1, l/2, win, (i+1)%4)
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n - 1, l / 2, win, (i+2)%4)
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n - 1, l / 2, win, (i+3)%4)
+    for i in range(4, t, -1):
+        lk = Line(Point(x0, y0), pl[i])
+        lk.draw(win)
+        if n!= 0:
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n-1, l/2, win, (i+1)%4)
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n - 1, l / 2, win, (i+2)%4)
+            fifty_two_frac_4(pl[i].getX(), pl[i].getY(), n - 1, l / 2, win, (i+3)%4)
+
+
+
+
+
+def fifty_two():
+    n = 3
+    win = GraphWin("This window", 1000, 1000, autoflush=False)
+    win.setBackground("White")
+    x0 = 500
+    y0 = 500
+    k =3
+    if k == 4:
+        fifty_two_frac_3(x0, y0, n-1, 100, win, 0)
+    update(30)
+    time.sleep(10)
+
+def fifty_two_second_frac(x1, y1, x2, y2, x3, y3, n, win, b):
+    if b == True and n != 0:
+        p0  = Polygon(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+        p0.draw(win)
+        xh = abs(x2-x3)/2 + min(x2, x3)
+        yh = abs(y2-y3)/2 + min(y2, y3)
+        xk = x1 + (x1 - xh)/2
+        yk = y1 + (y1 - yh)/2
+        l = math.sqrt((xh-x1)**2 + (yh-y1)**2)/2
+        ca = (x1 - xk)/l
+        sa = (y1-yk)/l
+        xk2 = xk + l*(ca*math.cos(math.pi/6) + sa*math.sin(math.pi/6))
+        yk2 = yk - l*(sa*math.cos(math.pi/6) - ca*math.sin(math.pi/6))
+        xk3 = xk + l*(ca*math.cos(math.pi/6) - sa*math.sin(math.pi/6))
+        yk3 = yk - l*(sa*math.cos(math.pi/6) + ca*math.sin(math.pi/6))
+        li = Line(Point(x1, y1), Point(xk, yk))
+        li.draw(win)
+        fifty_two_second_frac(xk, yk, xk2, yk2, xk3, yk3, n-1, win, False)
+        xh = abs(x1 - x2) / 2 + min(x1, x2)
+        yh = abs(y2 - y1) / 2 + min(y1, y2)
+        xk = x3 + (x3 - xh) / 2
+        yk = y3 + (y3 - yh) / 2
+        l = math.sqrt((x3 - xh) ** 2 + (y3 - yh) ** 2) / 2
+        ca = (xk - x3) / l
+        sa = (y3 - yk) / l
+        xk2 = xk + l * (ca * math.cos(math.pi / 6) + sa * math.sin(math.pi / 6))
+        yk2 = yk - l * (sa * math.cos(math.pi / 6) - ca * math.sin(math.pi / 6))
+        xk3 = xk + l * (ca * math.cos(math.pi / 6) - sa * math.sin(math.pi / 6))
+        yk3 = yk - l * (sa * math.cos(math.pi / 6) + ca * math.sin(math.pi / 6))
+        li = Line(Point(x3, y3), Point(xk, yk))
+        li.draw(win)
+        fifty_two_second_frac(xk, yk, xk2, yk2, xk3, yk3, n - 1, win, False)
+        xh = abs(x1 - x3) / 2 + min(x1, x3)
+        yh = abs(y3 - y1) / 2 + min(y1, y3)
+        xk = x2 + (x2 - xh) / 2
+        yk = y2 + (y2 - yh) / 2
+        l = math.sqrt((x2 - xh) ** 2 + (y2 - yh) ** 2) / 2
+        ca = (xk - x2) / l
+        sa = (y2 - yk) / l
+        xk2 = xk + l * (ca * math.cos(math.pi / 6) + sa * math.sin(math.pi / 6))
+        yk2 = yk - l * (sa * math.cos(math.pi / 6) - ca * math.sin(math.pi / 6))
+        xk3 = xk + l * (ca * math.cos(math.pi / 6) - sa * math.sin(math.pi / 6))
+        yk3 = yk - l * (sa * math.cos(math.pi / 6) + ca * math.sin(math.pi / 6))
+        li = Line(Point(x2, y2), Point(xk, yk))
+        li.draw(win)
+        fifty_two_second_frac(xk, yk, xk2, yk2, xk3, yk3, n - 1, win, False)
+
+
+
+
+
+    elif n != 0:
+        p0 = Polygon(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+        p0.draw(win)
+        xh = abs(x1 - x2) / 2 + min(x1, x2)
+        yh = abs(y2 - y1) / 2 + min(y1, y2)
+        xk = x3 + (x3 - xh) / 2
+        yk = y3 + (y3 - yh) / 2
+        l = math.sqrt((x3 - xh) ** 2 + (y3 - yh) ** 2) / 2
+        ca = (xk - x3) / l
+        sa = (y3 - yk) / l
+        xk2 = xk + l * (ca * math.cos(math.pi / 6) + sa * math.sin(math.pi / 6))
+        yk2 = yk - l * (sa * math.cos(math.pi / 6) - ca * math.sin(math.pi / 6))
+        xk3 = xk + l * (ca * math.cos(math.pi / 6) - sa * math.sin(math.pi / 6))
+        yk3 = yk - l * (sa * math.cos(math.pi / 6) + ca * math.sin(math.pi / 6))
+        li = Line(Point(x3, y3), Point(xk, yk))
+        li.draw(win)
+        fifty_two_second_frac(xk, yk, xk2, yk2, xk3, yk3, n - 1, win, False)
+
+        xh = abs(x1 - x3) / 2 + min(x1, x3)
+        yh = abs(y3 - y1) / 2 + min(y1, y3)
+        xk = x2 + (x2 - xh) / 2
+        yk = y2 + (y2 - yh) / 2
+        l = math.sqrt((x2 - xh) ** 2 + (yh - y2) ** 2) / 2
+        ca = (xk - x2) / l
+        sa = (y2 - yk) / l
+        xk2 = xk + l * (ca * math.cos(math.pi / 6) + sa * math.sin(math.pi / 6))
+        yk2 = yk - l * (sa * math.cos(math.pi / 6) - ca * math.sin(math.pi / 6))
+        xk3 = xk + l * (ca * math.cos(math.pi / 6) - sa * math.sin(math.pi / 6))
+        yk3 = yk - l * (sa * math.cos(math.pi / 6) + ca * math.sin(math.pi / 6))
+        li = Line(Point(x2, y2), Point(xk, yk))
+        li.draw(win)
+        fifty_two_second_frac(xk, yk, xk2, yk2, xk3, yk3, n-1, win, False)
+
+
+
+def fifty_two_second():
+    n = 5
+    win = GraphWin("This window", 1000, 1000)
+    win.setBackground("White")
+    x1 = 500
+    y1 = 400
+    y2 = 600
+    x2 = x1 - (y2 - y1) / math.tan(math.pi / 3)
+    x3 = x1 + (y2 - y1) / math.tan(math.pi / 3)
+    y3 = 600
+    fifty_two_second_frac(x1, y1, x2, y2, x3, y3, n, win, True)
+    time.sleep(20)
+
+
+def fifty_three_frac(x1, y1, x2, y2, x3, y3, n, win, b):
+    if b == True and n != 0:
+        po = Polygon(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+        po.draw(win)
+        if x2> x3:
+            p = Point(x3, y3)
+            pm = Point(x2, y2)
+        else:
+            p = Point(x2, y2)
+            pm = Point(x3, y3)
+
+        xk11 = p.x + abs((x2 - x3))/3
+        yk11 = p.y + (pm.y - p.y)/3
+        xk12 = p.x + abs(x2 - x3) / 3*2
+        yk12 = p.y +(pm.y - p.y)/3*2
+
+
+        l = math.sqrt((xk11 - xk12) ** 2 + (yk11 - yk12) ** 2)
+        '''sa = (yk1 - y2) / math.sqrt((x1 - xk1) ** 2 + (y2 - yk1) ** 2)
+        ca = (xk1 - x2) / math.sqrt((x1 - xk1) ** 2 + (y2 - yk1) ** 2)
+        xk3 = min(xk2, xk1) + l*(ca*math.cos(math.pi/3)  + sa*math.sin(math.pi/3))
+        yk3 = min(yk2, yk1) + l*(sa*math.cos(math.pi/3) - ca*math.sin(math.pi/3))'''
+
+        xm = abs(xk12 - xk11) / 2 + min(xk12, xk11)
+        ym = abs(yk12 - yk11) / 2 + min(yk11, yk12)
+        if xk11 != xk12:
+            if yk11 != yk12:
+                sa = abs(xk12 - xk11) * (xk12 - xk11) / abs(xk12 - xk11) / l
+                ca = abs(yk12 - yk11) * (yk12 - yk11) / abs(yk12 - yk11) / l
+            else:
+                sa = abs(xk12 - xk11) * (xk11 - xk12) / abs(xk11 - xk12) / l
+                ca = abs(yk12 - yk11) / l
+        else:
+            sa = abs(xk12 - xk11) / l
+            ca = abs(yk12 - yk11) * abs(yk11 - yk12) / (yk12 - yk11) / l
+        yk3 = ym - sa * l / 2 * math.sqrt(3)
+        xk3 = xm + ca * l / 2 * math.sqrt(3)
+
+        fifty_three_frac(xk3, yk3, xk12, yk12, xk11, yk11, n-1, win, False)
+
+        if x1 > x3:
+            p = Point(x3, y3)
+            pm = Point(x1, y1)
+        else:
+            p = Point(x1, y1)
+            pm = Point(x3, y3)
+
+        xk21 = p.x + abs((x1 - x3)) / 3
+        yk21 = p.y + (pm.y - p.y) / 3
+        xk22 = p.x + abs(x1 - x3) / 3 * 2
+        yk22 = p.y + (pm.y - p.y) / 3 * 2
+        l = math.sqrt((xk21 - xk22) ** 2 + (yk21 - yk22) ** 2)
+
+        xm = abs(xk22 - xk21) / 2 + min(xk22, xk21)
+        ym = abs(yk22 - yk21) / 2 + min(yk21, yk22)
+        if xk21 != xk22:
+            if yk21 != yk22:
+                sa = abs(xk22 - xk21) * (xk22 - xk21) / abs(xk22 - xk21) / l
+                ca = abs(yk22 - yk21) * (yk22 - yk21) / abs(yk22 - yk21) / l
+            else:
+                sa = abs(xk22 - xk21) * (xk22 - xk21) / abs(xk21 - xk22) / l
+                ca = abs(yk22 - yk21) / l
+        else:
+            sa = abs(xk22 - xk21) / l
+            ca = abs(yk22 - yk21) * abs(yk21 - yk22) / (yk22 - yk21) / l
+        yk3 = ym - sa * l /2*math.sqrt(3)
+        xk3 = xm + ca * l / 2 * math.sqrt(3)
+
+        '''sa = (yk1 - p.y) / l
+        ca = (xk1 - p.x) / l
+        if xk1 > xk2:
+            p = Point(xk2, yk2)
+        else:
+            p = Point(xk1, yk1)
+        xk3 = xk1 + l * (ca * math.cos(math.pi / 3) + sa * math.sin(math.pi / 3))
+        yk3 = yk1 + l * (sa * math.cos(math.pi / 3) - ca * math.sin(math.pi / 3))'''
+        fifty_three_frac(xk3, yk3, xk21, yk21, xk22, yk22, n - 1, win, False)
+
+        if x2 > x1:
+            p = Point(x1, y1)
+            pm = Point(x2, y2)
+        else:
+            p = Point(x2, y2)
+            pm = Point(x1, y1)
+
+        xk31 = p.x + abs((x2 - x1)) / 3
+        yk31 = p.y + (pm.y - p.y) / 3
+        xk32 = p.x + abs(x2 - x1) / 3 * 2
+        yk32 = p.y + (pm.y - p.y) / 3 * 2
+        l = math.sqrt((xk31 - xk32) ** 2 + (yk31 - yk32) ** 2)
+        xm = abs(xk32 - xk31) / 2 + min(xk32, xk31)
+        ym = abs(yk32 - yk31) / 2 + min(yk31, yk32)
+        if xk31 != xk32:
+            if yk31 != yk32:
+                sa = abs(xk32 - xk31) * (xk32 - xk31) / abs(xk32 - xk31) / l
+                ca = abs(yk32 - yk31) * (yk32 - yk31) / abs(yk32 - yk31) / l
+            else:
+                sa = abs(xk32 - xk31) * (xk32 - xk31) / abs(xk31 - xk32) / l
+                ca = abs(yk32 - yk31) / l
+        else:
+            sa = abs(xk32 - xk31) / l
+            ca = abs(yk32 - yk31) * abs(yk31 - yk32) / (yk32 - yk31) / l
+        yk3 = ym - sa * l / 2 * math.sqrt(3)
+        xk3 = xm + ca * l / 2 * math.sqrt(3)
+        fifty_three_frac(xk3, yk3, xk31, yk31, xk32, yk32, n - 1, win, False)
+        fifty_three_frac(x1, y1, xk32, yk32, xk21, yk21, n-1, win, False)
+        fifty_three_frac(x2, y2, xk11, yk11, xk31, yk31, n-1, win, False)
+        fifty_three_frac(x3, y3, xk22, yk22, xk12, yk12, n-1, win, False)
+
+
+
+    elif n!= 0:
+        p = Polygon(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+        p.draw(win)
+        li = Line(Point(x3, y3), Point(x2, y2))
+        li.setFill("white")
+        li.setOutline("white")
+        li.draw(win)
+
+        xk21 = x3 - (x3-x1) /3
+        yk21 = y3 + (y1-y3) / 3
+        xk22 = x3 - (x3-x1) /3*2
+        yk22 = y3  + (y1-y3)/3*2
+        l = math.sqrt((xk21 - xk22) ** 2 + (yk21 - yk21) ** 2)
+
+        xm = abs(xk22 - xk21) / 2 + min(xk22, xk21)
+        ym = abs(yk22 - yk21) / 2 + min(yk21, yk22)
+        if xk21 != xk22:
+            if yk21 != yk22:
+                sa = abs(xk22 - xk21) * (xk22 - xk21) / abs(xk22 - xk21) / l
+                ca = abs(yk22 - yk21) * (yk22 - yk21) / abs(yk22 - yk21) / l
+            else:
+                sa = abs(xk22 - xk21) * (xk22 - xk21) / abs(xk21 - xk22) / l
+                ca = abs(yk22 - yk21) / l
+        else:
+            sa = abs(xk22 - xk21) / l
+            ca = abs(yk22 - yk21) * abs(yk21 - yk22) / (yk22 - yk21) / l
+        yk3 = ym + sa * l / 2 * math.sqrt(3)
+        xk3 = xm - ca * l / 2 * math.sqrt(3)
+
+        '''sa = (yk1 - p.y) / l
+        ca = (xk1 - p.x) / l
+        if xk1 > xk2:
+            p = Point(xk2, yk2)
+        else:
+            p = Point(xk1, yk1)
+        xk3 = xk1 + l * (ca * math.cos(math.pi / 3) + sa * math.sin(math.pi / 3))
+        yk3 = yk1 + l * (sa * math.cos(math.pi / 3) - ca * math.sin(math.pi / 3))'''
+        fifty_three_frac(xk3, yk3, xk22, yk22, xk21, yk21, n - 1, win, False)
+
+        xk31 = x2 + (x1 - x2) / 3
+        yk31 = y2 - (y2 - y1) / 3
+        xk32 = x2 + (x1 - x2) / 3 * 2
+        yk32 = y2 - (y2 - y1) / 3 * 2
+        l = math.sqrt((xk31 - xk32) ** 2 + (yk31 - yk32) ** 2)
+        xm = abs(xk32 - xk31) / 2 + min(xk32, xk31)
+        ym = abs(yk32 - yk31) / 2 + min(yk31, yk32)
+        if xk31 != xk32:
+            if yk31 != yk32:
+                sa = abs(xk32 - xk31) * (xk32 - xk31) / abs(xk32 - xk31) / l
+                ca = abs(yk32 - yk31) * (yk32 - yk31) / abs(yk32 - yk31) / l
+            else:
+                sa = abs(xk32 - xk31) * (xk32 - xk31) / abs(xk31 - xk32) / l
+                ca = abs(yk32 - yk31) / l
+        else:
+            sa = abs(xk32 - xk31) / l
+            ca = abs(yk32 - yk31) * abs(yk31 - yk32) / (yk32 - yk31) / l
+        yk3 = ym - sa * l / 2 * math.sqrt(3)
+        xk3 = xm + ca * l / 2 * math.sqrt(3)
+        fifty_three_frac(xk3, yk3, xk32, yk32, xk31, yk31, n - 1, win, False)
+        fifty_three_frac(x1, y1, xk32, yk32, xk21, yk21, n - 1, win, False)
+
+
+
+
+
+def fifty_three():
+    n = 3
+    win = GraphWin("This window", 1000, 1000)
+    win.setBackground("White")
+    x1 = 500
+    y1 = 400
+    y2 = 600
+    x2 = x1 - (y2 - y1) / math.tan(math.pi / 3)
+    x3 = x1 + (y2 - y1) / math.tan(math.pi / 3)
+    y3 = 600
+    fifty_three_frac(x1, y1, x2, y2, x3, y3, n, win, True)
+    time.sleep(20)
+
+
+def fifty_five_frec(x1, y1, x2, y2, x3, y3, x4, y4, n, win):
+    if n!= 0:
+        p = Polygon(Point(x1, y1), Point(x2, y2), Point(x4, y4), Point(x3, y3))
+        p.draw(win)
+        l = (math.sqrt((x1-x2)**2 + (y1-y2)**2))
+        xm = abs(x2-x1)/2 + min(x2, x1)
+        ym = abs(y2-y1)/2 + min(y1, y2)
+        if x1 != x2:
+            if y1!= y2:
+                sa = abs(x2-x1) * (x2-x1)/abs(x2-x1)/l
+                ca = abs(y2-y1) * (y2-y1)/abs(y2-y1)/l
+            else:
+                sa = abs(x2 - x1) * (x2 - x1) / abs(x1 - x2) / l
+                ca = abs(y2 - y1) / l
+        else:
+            sa = abs(x2 - x1) / l
+            ca = abs(y2 - y1) * abs(y1 - y2) / (y2 - y1) / l
+        yk = ym - sa*l/2
+        xk = xm + ca * l/2
+
+        t = Polygon(Point(x1, y1), Point(x2, y2), Point(xk, yk))
+        t.draw(win)
+
+        xk11 = xk + l/math.sqrt(2)*(math.cos(math.pi/4) * ca + sa*math.sin(math.pi/4))
+        yk11 = yk + l/math.sqrt(2)* (math.sin(math.pi/4) * ca - math.cos(math.pi/4) * sa)
+        xk12 = x2 + l/math.sqrt(2)*(math.cos(math.pi/4) * ca + sa*math.sin(math.pi/4))
+        yk12 = y2 + l/math.sqrt(2)* (math.sin(math.pi/4) * ca - math.cos(math.pi/4) * sa)
+
+        xk21 = xk + l / math.sqrt(2) * (math.cos(math.pi / 4) * ca - sa * math.sin(math.pi / 4))
+        yk21 = yk - l / math.sqrt(2) * (math.sin(math.pi / 4) * ca + math.cos(math.pi / 4) * sa)
+        xk22 = x1 + l / math.sqrt(2) * (math.cos(math.pi / 4) * ca - sa * math.sin(math.pi / 4))
+        yk22 = y1 - l / math.sqrt(2) * (math.sin(math.pi / 4) * ca + math.cos(math.pi / 4) * sa)
+
+        fifty_five_frec(xk11, yk11, xk12, yk12, xk, yk, x2, y2, n-1, win)
+        fifty_five_frec(xk22, yk22, xk21, yk21, x1, y1, xk, yk, n-1, win)
+
+
+def fifty_five():
+    n = 15
+    win = GraphWin("This window", 1000, 1000)
+    win.setBackground("White")
+    x1 = 450
+    x2 = 550
+    x3 = x1
+    x4 = x2
+    y1 = 800
+    y2 = 800
+    y3 = 900
+    y4 = y3
+    fifty_five_frec(x1, y1, x2, y2, x3, y3, x4, y4, n-1, win)
+    time.sleep(5)
